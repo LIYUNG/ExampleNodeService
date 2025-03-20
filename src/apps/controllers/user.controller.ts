@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
+import { OAuth2Client } from 'google-auth-library';
 import UserService from '../services/users.service';
 import { userQueryBuilder } from '../builders/UserQueryBuilder';
+import { config } from '../../config';
+import jwt from 'jsonwebtoken';
+
+const client = new OAuth2Client(config.google.clientId); // 替換為你的 Google Client ID
 
 class UserController {
   static async getUsers(
@@ -75,6 +80,48 @@ class UserController {
       });
     }
   }
+  static thirdAuth = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const { token } = req.body;
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: config.google.clientId, // Google Client ID
+    });
+    const payload = ticket.getPayload();
+    if (!payload) {
+      return res.status(400).json({ message: 'Invalid Google Token' });
+    }
+    const { email, name, picture } = payload;
+    let user;
+    user = await UserService.getUserByEmail(email as string);
+    if (!user) {
+      const newUser = await UserService.createUser({
+        email,
+        name,
+        password: 'thirdLogin',
+        pictureUrl: picture,
+      });
+      user = newUser;
+    }
+
+    const jwtToken = jwt.sign(
+      { userId: user._id },
+      config.jwt.accessTokenSecret,
+      {
+        expiresIn: config.jwt.accessTokenExpireTime,
+      },
+    );
+
+    res.json({
+      token: jwtToken,
+      email,
+      name,
+      pictureUrl: picture,
+    });
+  };
 }
 
 export default UserController;

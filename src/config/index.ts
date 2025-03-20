@@ -8,6 +8,9 @@ interface Config {
     accessKeyId: string;
     secretAccessKey: string;
   };
+  google: {
+    clientId: string;
+  };
   runningProd: boolean;
   app: string;
   port: number;
@@ -49,6 +52,9 @@ export const config: Config = {
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+  },
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID || '',
   },
   runningProd: process.env.NODE_ENV === 'production',
   app: process.env.APP_NAME || 'myapp',
