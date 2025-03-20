@@ -3,15 +3,13 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import { AppRoutes } from '../../../apps/routes';
-// import { helmetCSPConfig } from '../../constants';
+import router from './apps/routes';
 
 const app = express();
 
 // Express configuration
 app.use(cors());
 app.use(helmet()); // Use Helmet to add various security headers
-// app.use(helmetCSPConfig);
 app.use(helmet.frameguard({ action: 'deny' })); // Prevent the app from being displayed in an iframe
 app.use(helmet.xssFilter()); // Protect against XSS attacks
 app.use(helmet.noSniff()); // Prevent MIME type sniffing
@@ -20,6 +18,6 @@ app.use(express.json());
 app.disable('x-powered-by'); // Disable X-Powered-By header
 
 // API Routes
-app.use('/api/v1', AppRoutes);
+router(app);
 
 export default app;
