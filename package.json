@@ -32,6 +32,7 @@
   "author": "Abdou-Raouf ATARMLA",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.772.0",
     "@types/connect-flash": "^0.0.40",
     "@types/express-session": "^1.18.0",
     "bcrypt": "^5.1.1",
