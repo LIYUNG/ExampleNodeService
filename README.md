@@ -131,9 +131,6 @@ DB_URI=mongodb://mongo:27017
 DB_NAME=mydatabase
 MONGO_CLIENT_PORT=9005
 
-# Cache
-REDIS_HOST=redis
-REDIS_SERVER_PORT=9079
 
 ```
 
