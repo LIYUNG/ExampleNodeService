@@ -6,6 +6,8 @@ const userSchema = new Schema({
   password: String,
 });
 
+userSchema.index({ name: 1, email: 1 }, { unique: true });
+
 const UserModel = model('User', userSchema);
 
 export default UserModel;
