@@ -4,7 +4,7 @@ process.on('uncaughtException', function (err) {
 
 import { initServices } from './helpers';
 import { WebServer } from './core/framework';
-import { config } from './core/config';
+import { config } from './config';
 
 async function startServer() {
   try {

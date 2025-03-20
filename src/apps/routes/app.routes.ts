@@ -3,6 +3,6 @@ import { AppController } from '../controllers';
 
 const router = Router();
 
-router.get('/', AppController.showHomePage);
+router.get('/', AppController.getHelloWorld);
 
 export default router;

@@ -8,18 +8,35 @@ Check our latest complete boilerplate for NodeTs [Node Typescript Wizard](https:
 
 ## Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [Installation](#installation)
-3. [Running the Application](#running-the-application)
-4. [Project Structure](#project-structure)
-5. [Scripts Explanation](#scripts-explanation)
-6. [Environment Variables](#environment-variables)
-7. [Docker Configuration](#docker-configuration)
-8. [Security Features](#security-features)
-9. [Linting and Formatting](#linting-and-formatting)
-10. [Commit Message Guidelines](#commit-message-guidelines)
-11. [Accessing Services](#accessing-services)
-12. [Contributing](#contributing)
+- [Node.js TypeScript Starter Project](#nodejs-typescript-starter-project)
+  - [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+    - [Development Mode](#development-mode)
+    - [Production Mode](#production-mode)
+  - [Project Structure](#project-structure)
+  - [Scripts Explanation](#scripts-explanation)
+    - [`bin/install.sh`](#bininstallsh)
+    - [`bin/start.sh`](#binstartsh)
+  - [Dockerfile](#dockerfile)
+  - [docker-compose.yml](#docker-composeyml)
+  - [Environment Variables](#environment-variables)
+  - [Docker Configuration](#docker-configuration)
+    - [Building and Starting Docker Containers](#building-and-starting-docker-containers)
+  - [Security Features](#security-features)
+    - [Rate Limiting](#rate-limiting)
+    - [Brute Force Protection](#brute-force-protection)
+    - [Hiding Technology Stack](#hiding-technology-stack)
+    - [Content Security Policy](#content-security-policy)
+  - [Linting and Formatting](#linting-and-formatting)
+    - [Running ESLint](#running-eslint)
+    - [Running Prettier](#running-prettier)
+  - [Commit Message Guidelines](#commit-message-guidelines)
+    - [Commit Message Format](#commit-message-format)
+    - [Setting Up Commitlint](#setting-up-commitlint)
+  - [Accessing Services](#accessing-services)
+  - [Contributing](#contributing)
 
 ## Prerequisites
 
@@ -328,7 +345,6 @@ After running the application, you can access the following services:
 - **Redis**: Accessible on port `9079`
 - **MinIO API**: Accessible on port `9500`
 - **MinIO WebApp**: Accessible on port `9050`
-- **MailDev SMTP (external)**: Accessible on port `9025`
 - **MailDev WebApp**: Accessible on port `9080`
 
 ## Contributing

@@ -1,3 +1,3 @@
-export * from './auth';
-export * from './starter';
-export * from './users';
+export * from './controllers';
+export * from './routes';
+export * from './services';
