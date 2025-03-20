@@ -1,10 +1,12 @@
-import { Router } from 'express';
+import { Router, Express } from 'express';
 import { default as AppRoutes } from './app.routes';
-import { Express } from 'express';
+import { default as UserRoutes } from './user.routes';
+
 const router = (app: Express) => {
   const apiRouter = Router();
 
   apiRouter.use('/app', AppRoutes);
+  apiRouter.use('/user', UserRoutes);
   app.use('/api', apiRouter);
 };
 

@@ -13,30 +13,17 @@ Check our latest complete boilerplate for NodeTs [Node Typescript Wizard](https:
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running the Application](#running-the-application)
-    - [Development Mode](#development-mode)
-    - [Production Mode](#production-mode)
   - [Project Structure](#project-structure)
-  - [Scripts Explanation](#scripts-explanation)
-    - [`bin/install.sh`](#bininstallsh)
-    - [`bin/start.sh`](#binstartsh)
-  - [Dockerfile](#dockerfile)
-  - [docker-compose.yml](#docker-composeyml)
   - [Environment Variables](#environment-variables)
-  - [Docker Configuration](#docker-configuration)
-    - [Building and Starting Docker Containers](#building-and-starting-docker-containers)
   - [Security Features](#security-features)
     - [Rate Limiting](#rate-limiting)
     - [Brute Force Protection](#brute-force-protection)
     - [Hiding Technology Stack](#hiding-technology-stack)
     - [Content Security Policy](#content-security-policy)
-  - [Linting and Formatting](#linting-and-formatting)
-    - [Running ESLint](#running-eslint)
-    - [Running Prettier](#running-prettier)
   - [Commit Message Guidelines](#commit-message-guidelines)
     - [Commit Message Format](#commit-message-format)
     - [Setting Up Commitlint](#setting-up-commitlint)
   - [Accessing Services](#accessing-services)
-  - [Contributing](#contributing)
 
 ## Prerequisites
 
@@ -50,16 +37,8 @@ Ensure you have the following installed on your system:
 
 To set up the project, follow these steps:
 
-1. **Clone the repository**:
-    ```sh
-    git clone https://github.com/your-username/node-ts-starter.git
-    cd node-ts-starter
-    ```
 
-2. **Run the installation script**:
-    ```sh
-    bash bin/install.sh
-    ```
+1. **Run the installation script**:
 
     This script will:
     - Copy the `.env.example` file to `.env`.
@@ -69,19 +48,6 @@ To set up the project, follow these steps:
 
 You can run the application in either development or production mode.
 
-### Development Mode
-
-To run the application in development mode:
-```sh
-bash bin/start.sh
-```
-
-### Production Mode
-
-To run the application in production mode:
-```sh
-bash bin/start.sh --prod
-```
 
 ## Project Structure
 
@@ -94,111 +60,48 @@ Here is an overview of the project's structure:
 ├── .env.example
 ├── .eslintignore
 ├── .prettierrc
-├── bin
-│   ├── install.sh
-│   └── start.sh
 ├── Dockerfile
-├── docker-compose.yaml
 ├── package.json
 ├── package-lock.json
 ├── README.md
 ├── src
 │   ├── app
+│   │   ├── builders
+│   │   │   ├── BaseQueryBuilder.ts
+│   │   │   ├── index.ts
+│   │   │   └── UserQueryBuilder.ts
 │   │   ├── controllers
+│   │   │   ├── app.controller.ts
+│   │   │   ├── index.ts
 │   │   │   └── user.controller.ts
 │   │   ├── models
+│   │   │   ├── index.ts
 │   │   │   └── user.model.ts
-│   │   ├── repositories
-│   │   │   ├── base.repo.ts
-│   │   │   └── user.repo.ts
 │   │   ├── routes
+│   │   │   ├── app.routes.ts
 │   │   │   ├── routes.ts
 │   │   │   └── user.routes.ts
 │   │   ├── services
-│   │   │   ├── base.service.ts
+│   │   │   ├── index.ts
 │   │   │   └── user.service.ts
-│   │   ├── templates
-│   │   │   ├── app
-│   │   │   │   └── presentation.html
-│   │   │   └── mail
-│   │   │       └── welcome.html
-│   │   ├── utils
-│   │   │   ├── handlers
-│   │   │   │   ├── error
-│   │   │   │   │   ├── global.ts
-│   │   │   │   │   ├── notfound.ts
-│   │   │   │   │   └── index.ts
-│   │   │   │   ├── res
-│   │   │   │   │   └── index.ts
-│   │   │   │   └── index.ts
-│   │   │   ├── middlewares
-│   │   │   │   ├── bruteforce.ts
-│   │   │   │   ├── client-authentication.ts
-│   │   │   │   ├── rate-limiter.ts
-│   │   │   │   ├── validate.ts
-│   │   │   │   └── index.ts
-│   │   │   ├── types
-│   │   │   │   ├── service-response.ts
-│   │   │   │   ├── user.ts
-│   │   │   │   └── index.ts
-│   │   │   └── validators
-│   │   │       ├── user.ts
-│   │   │       └── index.ts
 │   ├── config
 │   │   └── index.ts
 │   ├── constants
 │   │   └── index.ts
-│   ├── framework
+│   ├── dependencies
 │   │   ├── database
 │   │   │   ├── mongoose
 │   │   │   │   └── db.ts
-│   │   │   ├── redis
-│   │   │   │   └── redis.ts
 │   │   │   └── index.ts
-│   │   ├── storage
-│   │   │   └── minio
-│   │   │       └── minio.ts
-│   │   ├── webserver
-│   │   │   └── express.ts
 │   │   └── index.ts
 │   ├── helpers
-│   │   ├── db-connection-test.ts
-│   │   ├── index.ts
-│   │   ├── init-services.ts
-│   │   ├── minio-test.ts
-│   │   ├── redis-test.ts
-│   │   ├── string.ts
-│   │   └── time.ts
+│   │   └── db-connection-test.ts
+│   ├── express.ts
 │   ├── server.ts
-│   └── index.ts
 ├── commitlint.config.js
 ├── tsconfig.json
 └── .prettierignore
 ```
-
-## Scripts Explanation
-
-### `bin/install.sh`
-
-This script sets up the project by performing the following tasks:
-- Copies the `.env.example` file to `.env`, replacing any existing `.env` file.
-- Installs npm dependencies.
-
-### `bin/start.sh`
-
-This script runs the application by performing the following tasks:
-- Checks if Docker and Docker Compose are installed.
-- Runs the `install.sh` script to ensure dependencies are installed.
-- Sets the `NODE_ENV` environment variable based on the provided argument (`--prod` for production).
-- Starts the Docker containers using Docker Compose.
-
-## Dockerfile
-
-The Dockerfile defines how the Docker image is built. It includes steps for setting up the working directory, installing dependencies, copying the source code, building the TypeScript project, and defining the startup command.
-
-## docker-compose.yml
-
-This file defines the Docker services for the application, including the application itself, MongoDB, Redis, MinIO, and Maildev. It uses environment variables from the `.env` file to configure the services.
 
 ## Environment Variables
 
@@ -232,39 +135,8 @@ MONGO_CLIENT_PORT=9005
 REDIS_HOST=redis
 REDIS_SERVER_PORT=9079
 
-# MinIO
-MINIO_ENDPOINT=minio
-MINIO_ACCESS_KEY=minio-access-key
-MINIO_SECRET_KEY=minio-secret-key
-MINIO_API_PORT=9500
-MINIO_CONSOLE_PORT=9050
-
-# Maildev
-MAILDEV_HOST=maildev
-MAILDEV_PORT=1025
-MAILDEV_SMTP=9025
-MAILDEV_WEBAPP_PORT=9080
 ```
 
-## Docker Configuration
-
-The Docker configuration allows the application to run in isolated containers. The services defined in `docker-compose.yml` include:
-
-- **app**: The main Node.js application.
-- **mongo**: MongoDB database service.
-- **redis**: Redis caching service.
-- **minio**: MinIO object storage service.
-- **maildev**: Maildev service for testing email sending.
-
-### Building and Starting Docker Containers
-
-To build and start the Docker containers, run:
-
-```sh
-docker-compose up --build
-```
-
-This command will build the Docker images and start the services defined in `docker-compose.yml`.
 
 ## Security Features
 
@@ -286,31 +158,6 @@ The `helmet` middleware is used to hide the `X-Powered-By` header to
 
 A strict content security policy is enforced using the `helmet` middleware to prevent loading of unauthorized resources.
 
-## Linting and Formatting
-
-This project uses ESLint and Prettier for code linting and formatting.
-
-### Running ESLint
-
-To check for linting errors:
-
-```sh
-npm run lint
-```
-
-To fix linting errors automatically:
-
-```sh
-npm run lint:fix
-```
-
-### Running Prettier
-
-To format your code:
-
-```sh
-npm run format
-```
 
 ## Commit Message Guidelines
 
@@ -342,15 +189,3 @@ After running the application, you can access the following services:
 
 - **Node.js Application**: [http://localhost:9095](http://localhost:9095)
 - **MongoDB**: Accessible on port `9005`
-- **Redis**: Accessible on port `9079`
-- **MinIO API**: Accessible on port `9500`
-- **MinIO WebApp**: Accessible on port `9050`
-- **MailDev WebApp**: Accessible on port `9080`
-
-## Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-Feel free to check the [issues page](https://github.com/fless-lab/node-ts-starter/issues) if you want to contribute.
-
-Don't forget to give a star if you find this project useful!
