@@ -1,6 +1,13 @@
-class BaseQueryBuilder {
-  query: {};
-  options: {};
+interface QueryOptions {
+  sort: { [key: string]: 1 | -1 };
+  limit: number;
+  skip: number;
+}
+
+export class BaseQueryBuilder {
+  query: Record<string, unknown>;
+  options: QueryOptions;
+
   constructor() {
     this.query = {};
     this.options = {
@@ -9,6 +16,7 @@ class BaseQueryBuilder {
       skip: 0,
     };
   }
+
   withPagination(page: number | string = 1, limit: number | string = 10) {
     const parsedPage = typeof page === 'string' ? parseInt(page) : page;
     const parsedLimit = typeof limit === 'string' ? parseInt(limit) : limit;
@@ -24,11 +32,11 @@ class BaseQueryBuilder {
     return this;
   }
 
-  withSort(field = 'createdAt', order = 'asc') {
+  withSort(field = 'createdAt', order: 'asc' | 'desc' = 'asc') {
     // Ensure field has a default value
     const sortField = field || 'createdAt';
     // Convert order to lowercase and validate
-    const sortOrder = (order || '').toLowerCase() === 'desc' ? -1 : 1;
+    const sortOrder = order === 'desc' ? -1 : 1;
 
     this.options = {
       ...this.options,
@@ -45,4 +53,5 @@ class BaseQueryBuilder {
   }
 }
 
-export default new BaseQueryBuilder();
+// Export a singleton instance for backward compatibility
+export const baseQueryBuilder = new BaseQueryBuilder();

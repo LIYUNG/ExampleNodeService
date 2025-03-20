@@ -1,3 +1,3 @@
-import BaseQueryBuilder from './BaseQueryBuilder';
+import { BaseQueryBuilder } from './BaseQueryBuilder';
 
 export { BaseQueryBuilder };

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import UserModel from '../models/user.model';
+import { UserModel } from '../models';
 
 class UserService {
   // Get a single user by ID
