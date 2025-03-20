@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import router from './apps/routes';
-import { testDatabaseConnection } from './helper/db-connection';
 
 const app = express();
 
