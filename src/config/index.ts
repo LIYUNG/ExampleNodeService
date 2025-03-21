@@ -14,17 +14,12 @@ interface Config {
   runningProd: boolean;
   app: string;
   port: number;
-  enableClientAuth: boolean;
   jwt: {
     accessTokenSecret: string;
     refreshTokenSecret: string;
     accessTokenExpireTime: SignOptions['expiresIn'];
     refreshTokenExpireTime: SignOptions['expiresIn'];
     tokenIssuer: string;
-  };
-  rate: {
-    limit: number;
-    max: number;
   };
   db: {
     uri: string;
@@ -42,10 +37,6 @@ interface Config {
   bcrypt: {
     saltRounds: number;
   };
-  session: {
-    secret: string;
-  };
-  defaultViewEngine: string;
 }
 
 export const config: Config = {
@@ -59,7 +50,6 @@ export const config: Config = {
   runningProd: process.env.NODE_ENV === 'production',
   app: process.env.APP_NAME || 'myapp',
   port: parseInt(process.env.PORT || '9095', 10),
-  enableClientAuth: process.env.ENABLE_CLIENT_AUTH === 'true',
   jwt: {
     accessTokenSecret: process.env.ACCESS_TOKEN_SECRET || '',
     refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || '',
@@ -68,10 +58,6 @@ export const config: Config = {
     refreshTokenExpireTime: (process.env.REFRESH_TOKEN_EXPIRE_TIME ||
       '7d') as SignOptions['expiresIn'],
     tokenIssuer: process.env.TOKEN_ISSUER || 'your-issuer',
-  },
-  rate: {
-    limit: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 minutes in milliseconds
-    max: parseInt(process.env.RATE_LIMIT_MAX || '100', 10),
   },
   db: {
     uri: process.env.DB_URI || 'mongodb://localhost:27017',
@@ -99,8 +85,4 @@ export const config: Config = {
   bcrypt: {
     saltRounds: parseInt(process.env.BCRYPT_SALT_ROUNDS || '10', 10),
   },
-  session: {
-    secret: process.env.SESSION_SECRET || 'your-session-secret',
-  },
-  defaultViewEngine: process.env.VIEW_ENGINE || 'ejs',
 };

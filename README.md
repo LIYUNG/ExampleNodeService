@@ -110,21 +110,6 @@ The `.env` file contains the environment variables required by the application. 
 ```env
 # Engine
 PORT=9095
-ENABLE_CLIENT_AUTH=true
-
-# Client authentication
-BASIC_AUTH_USER=admin
-BASIC_AUTH_PASS=secret
-
-# Rate limiting
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX=100
-
-# Brute force protection
-BRUTE_FORCE_FREE_RETRIES=5
-BRUTE_FORCE_MIN_WAIT=300000
-BRUTE_FORCE_MAX_WAIT=3600000
-BRUTE_FORCE_LIFETIME=86400
 
 # Database
 DB_URI=mongodb://mongo:27017
@@ -133,7 +118,6 @@ MONGO_CLIENT_PORT=9005
 
 
 ```
-
 
 ## Security Features
 
